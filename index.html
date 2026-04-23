@@ -1,655 +1,799 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Employee Document Submission</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
- :root {
-   --bg: #0a0f1e;
-   --surface: #111827;
-   --card: #16213e;
-   --border: #1e3a5f;
-   --accent: #00d4ff;
-   --accent2: #0099cc;
-   --text: #e2e8f0;
-   --muted: #64748b;
-   --success: #10b981;
-   --error: #ef4444;
-   --warning: #f59e0b;
- }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Employee Document Submission</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0f1e;
+      --surface: #111827;
+      --card: #16213e;
+      --border: #1e3a5f;
+      --accent: #00d4ff;
+      --accent2: #0099cc;
+      --text: #e2e8f0;
+      --muted: #64748b;
+      --success: #10b981;
+      --error: #ef4444;
+      --warning: #f59e0b;
+    }
 
- * { margin: 0; padding: 0; box-sizing: border-box; }
+    - {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
- body {
-   font-family: 'DM Sans', sans-serif;
-   background: var(--bg);
-   color: var(--text);
-   min-height: 100vh;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   padding: 2rem;
-   position: relative;
-   overflow-x: hidden;
- }
+    body {
+      font-family: ‘DM Sans’, sans-serif;
+      background: var(–bg);
+      color: var(–text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      overflow-x: hidden;
+    }
 
- body::before {
-   content: '';
-   position: fixed;
-   top: -50%;
-   left: -50%;
-   width: 200%;
-   height: 200%;
-   background:
-     radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
-     radial-gradient(ellipse at 80% 80%, rgba(0, 153, 204, 0.05) 0%, transparent 50%);
-   pointer-events: none;
-   z-index: 0;
- }
+    body::before {
+      content: ‘’;
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(0, 212, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(0, 153, 204, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
- .grid-bg {
-   position: fixed;
-   inset: 0;
-   background-image:
-     linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
-     linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
-   background-size: 40px 40px;
-   pointer-events: none;
-   z-index: 0;
- }
+    .grid-bg {
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
- .container {
-   width: 100%;
-   max-width: 620px;
-   position: relative;
-   z-index: 1;
-   animation: fadeUp 0.6s ease both;
- }
+    .container {
+      width: 100%;
+      max-width: 620px;
+      position: relative;
+      z-index: 1;
+      animation: fadeUp 0.6s ease both;
+    }
 
- @keyframes fadeUp {
-   from { opacity: 0; transform: translateY(30px); }
-   to { opacity: 1; transform: translateY(0); }
- }
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
 
- .header {
-   text-align: center;
-   margin-bottom: 2.5rem;
- }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
- .logo-badge {
-   display: inline-flex;
-   align-items: center;
-   gap: 0.5rem;
-   background: rgba(0, 212, 255, 0.1);
-   border: 1px solid rgba(0, 212, 255, 0.3);
-   padding: 0.4rem 1rem;
-   border-radius: 999px;
-   font-family: 'Syne', sans-serif;
-   font-size: 0.75rem;
-   font-weight: 600;
-   color: var(--accent);
-   letter-spacing: 0.1em;
-   text-transform: uppercase;
-   margin-bottom: 1.2rem;
- }
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
 
- .logo-badge::before {
-   content: '';
-   width: 6px;
-   height: 6px;
-   background: var(--accent);
-   border-radius: 50%;
-   box-shadow: 0 0 8px var(--accent);
-   animation: pulse 2s infinite;
- }
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      font-family: ‘Syne’, sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(–accent);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
 
- @keyframes pulse {
-   0%, 100% { opacity: 1; }
-   50% { opacity: 0.3; }
- }
+    .logo-badge::before {
+      content: ‘’;
+      width: 6px;
+      height: 6px;
+      background: var(–accent);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(–accent);
+      animation: pulse 2s infinite;
+    }
 
- h1 {
-   font-family: 'Syne', sans-serif;
-   font-size: 2.2rem;
-   font-weight: 800;
-   color: #fff;
-   line-height: 1.1;
-   margin-bottom: 0.6rem;
- }
+    @keyframes pulse {
 
- h1 span { color: var(--accent); }
+      0%,
+      100% {
+        opacity: 1;
+      }
 
- .subtitle {
-   font-size: 0.9rem;
-   color: var(--muted);
-   font-weight: 400;
- }
+      50% {
+        opacity: 0.3;
+      }
+    }
 
- .card {
-   background: var(--card);
-   border: 1px solid var(--border);
-   border-radius: 16px;
-   padding: 2.5rem;
-   box-shadow:
-     0 0 0 1px rgba(0, 212, 255, 0.05),
-     0 20px 60px rgba(0, 0, 0, 0.5),
-     inset 0 1px 0 rgba(255, 255, 255, 0.05);
-   position: relative;
-   overflow: hidden;
- }
+    h1 {
+      font-family: ‘Syne’, sans-serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 0.6rem;
+    }
 
- .card::before {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   height: 2px;
-   background: linear-gradient(90deg, transparent, var(--accent), transparent);
- }
+    h1 span {
+      color: var(–accent);
+    }
 
- .form-grid {
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-   gap: 1.2rem;
- }
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(–muted);
+      font-weight: 400;
+    }
 
- .form-group {
-   display: flex;
-   flex-direction: column;
-   gap: 0.45rem;
- }
+    .card {
+      background: var(–card);
+      border: 1px solid var(–border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow:
+        0 0 0 1px rgba(0, 212, 255, 0.05),
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
 
- .form-group.full { grid-column: 1 / -1; }
+    .card::before {
+      content: ‘’;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(–accent), transparent);
+    }
 
- label {
-   font-size: 0.78rem;
-   font-weight: 500;
-   color: var(--muted);
-   letter-spacing: 0.05em;
-   text-transform: uppercase;
- }
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+    }
 
- label span.req { color: var(--accent); margin-left: 2px; }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+    }
 
- input[type="text"],
- input[type="email"] {
-   background: rgba(255, 255, 255, 0.04);
-   border: 1px solid var(--border);
-   border-radius: 10px;
-   padding: 0.75rem 1rem;
-   color: var(--text);
-   font-family: 'DM Sans', sans-serif;
-   font-size: 0.92rem;
-   outline: none;
-   transition: all 0.2s;
-   width: 100%;
- }
+    .form-group.full {
+      grid-column: 1 / -1;
+    }
 
- input[type="text"]:focus,
- input[type="email"]:focus {
-   border-color: var(--accent);
-   background: rgba(0, 212, 255, 0.05);
-   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
- }
+    label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(–muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
 
- input::placeholder { color: var(--muted); opacity: 0.6; }
+    label span.req {
+      color: var(–accent);
+      margin-left: 2px;
+    }
 
- .upload-zone {
-   border: 2px dashed var(--border);
-   border-radius: 12px;
-   padding: 2rem 1.5rem;
-   text-align: center;
-   cursor: pointer;
-   transition: all 0.25s;
-   position: relative;
-   overflow: hidden;
-   background: rgba(255, 255, 255, 0.02);
- }
+    input[type=“text”],
+    input[type=“email”] {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(–border);
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      color: var(–text);
+      font-family: ‘DM Sans’, sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.2s;
+      width: 100%;
+    }
 
- .upload-zone:hover,
- .upload-zone.drag-over {
-   border-color: var(--accent);
-   background: rgba(0, 212, 255, 0.05);
-   box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
- }
+    input[type=“text”]:focus,
+    input[type=“email”]:focus {
+      border-color: var(–accent);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
 
- .upload-zone input[type="file"] {
-   position: absolute;
-   inset: 0;
-   opacity: 0;
-   cursor: pointer;
-   width: 100%;
-   height: 100%;
- }
+    input::placeholder {
+      color: var(–muted);
+      opacity: 0.6;
+    }
 
- .upload-icon {
-   width: 44px;
-   height: 44px;
-   margin: 0 auto 0.8rem;
-   background: rgba(0, 212, 255, 0.1);
-   border: 1px solid rgba(0, 212, 255, 0.3);
-   border-radius: 10px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
- }
+    .upload-zone {
+      border: 2px dashed var(–border);
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.25s;
+      position: relative;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.02);
+    }
 
- .upload-icon svg { width: 22px; height: 22px; stroke: var(--accent); }
+    .upload-zone:hover,
+    .upload-zone.drag-over {
+      border-color: var(–accent);
+      background: rgba(0, 212, 255, 0.05);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+    }
 
- .upload-title {
-   font-family: 'Syne', sans-serif;
-   font-weight: 700;
-   font-size: 0.95rem;
-   color: var(--text);
-   margin-bottom: 0.3rem;
- }
+    .upload-zone input[type=“file”] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+      width: 100%;
+      height: 100%;
+    }
 
- .upload-hint {
-   font-size: 0.78rem;
-   color: var(--muted);
-   line-height: 1.5;
- }
+    .upload-icon {
+      width: 44px;
+      height: 44px;
+      margin: 0 auto 0.8rem;
+      background: rgba(0, 212, 255, 0.1);
+      border: 1px solid rgba(0, 212, 255, 0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
- .upload-hint strong { color: var(--accent); }
+    .upload-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: var(–accent);
+    }
 
- .file-preview {
-   display: none;
-   align-items: center;
-   gap: 0.8rem;
-   padding: 0.8rem 1rem;
-   background: rgba(16, 185, 129, 0.08);
-   border: 1px solid rgba(16, 185, 129, 0.3);
-   border-radius: 10px;
-   margin-top: 0.8rem;
- }
+    .upload-title {
+      font-family: ‘Syne’, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(–text);
+      margin-bottom: 0.3rem;
+    }
 
- .file-preview.show { display: flex; }
+    .upload-hint {
+      font-size: 0.78rem;
+      color: var(–muted);
+      line-height: 1.5;
+    }
 
- .file-icon {
-   width: 36px;
-   height: 36px;
-   border-radius: 8px;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-size: 1.2rem;
-   flex-shrink: 0;
- }
+    .upload-hint strong {
+      color: var(–accent);
+    }
 
- .file-details { flex: 1; min-width: 0; }
- .file-name { font-size: 0.85rem; font-weight: 500; color: var(--success); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
- .file-size { font-size: 0.73rem; color: var(--muted); margin-top: 2px; }
+    .file-preview {
+      display: none;
+      align-items: center;
+      gap: 0.8rem;
+      padding: 0.8rem 1rem;
+      background: rgba(16, 185, 129, 0.08);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      border-radius: 10px;
+      margin-top: 0.8rem;
+    }
 
- .file-remove {
-   background: none;
-   border: none;
-   color: var(--muted);
-   cursor: pointer;
-   font-size: 1.1rem;
-   line-height: 1;
-   transition: color 0.2s;
-   flex-shrink: 0;
- }
+    .file-preview.show {
+      display: flex;
+    }
 
- .file-remove:hover { color: var(--error); }
+    .file-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
 
- .error-msg {
-   display: none;
-   font-size: 0.78rem;
-   color: var(--error);
-   margin-top: 0.4rem;
-   padding: 0.5rem 0.8rem;
-   background: rgba(239, 68, 68, 0.08);
-   border-left: 3px solid var(--error);
-   border-radius: 0 6px 6px 0;
- }
+    .file-details {
+      flex: 1;
+      min-width: 0;
+    }
 
- .error-msg.show { display: block; }
+    .file-name {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(–success);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
- .divider {
-   height: 1px;
-   background: var(--border);
-   margin: 1.5rem 0;
-   position: relative;
- }
+    .file-size {
+      font-size: 0.73rem;
+      color: var(–muted);
+      margin-top: 2px;
+    }
 
- .btn-submit {
-   width: 100%;
-   padding: 0.9rem;
-   background: var(--accent);
-   color: #0a0f1e;
-   font-family: 'Syne', sans-serif;
-   font-weight: 700;
-   font-size: 0.95rem;
-   letter-spacing: 0.05em;
-   border: none;
-   border-radius: 10px;
-   cursor: pointer;
-   transition: all 0.25s;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 0.6rem;
-   position: relative;
-   overflow: hidden;
- }
+    .file-remove {
+      background: none;
+      border: none;
+      color: var(–muted);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+      transition: color 0.2s;
+      flex-shrink: 0;
+    }
 
- .btn-submit::after {
-   content: '';
-   position: absolute;
-   inset: 0;
-   background: linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 60%);
-   opacity: 0;
-   transition: opacity 0.2s;
- }
+    .file-remove:hover {
+      color: var(–error);
+    }
 
- .btn-submit:hover:not(:disabled) {
-   background: #00b8d9;
-   box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
-   transform: translateY(-1px);
- }
+    .error-msg {
+      display: none;
+      font-size: 0.78rem;
+      color: var(–error);
+      margin-top: 0.4rem;
+      padding: 0.5rem 0.8rem;
+      background: rgba(239, 68, 68, 0.08);
+      border-left: 3px solid var(–error);
+      border-radius: 0 6px 6px 0;
+    }
 
- .btn-submit:hover::after { opacity: 1; }
+    .error-msg.show {
+      display: block;
+    }
 
- .btn-submit:disabled {
-   opacity: 0.5;
-   cursor: not-allowed;
- }
+    .divider {
+      height: 1px;
+      background: var(–border);
+      margin: 1.5rem 0;
+      position: relative;
+    }
 
- .btn-submit svg { width: 18px; height: 18px; }
+    .btn-submit {
+      width: 100%;
+      padding: 0.9rem;
+      background: var(–accent);
+      color: #0a0f1e;
+      font-family: ‘Syne’, sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.05em;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.25s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      position: relative;
+      overflow: hidden;
+    }
 
- .spinner {
-   display: none;
-   width: 18px;
-   height: 18px;
-   border: 2px solid rgba(10, 15, 30, 0.3);
-   border-top-color: #0a0f1e;
-   border-radius: 50%;
-   animation: spin 0.7s linear infinite;
- }
+    .btn-submit::after {
+      content: ‘’;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
 
- @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-submit:hover:not(:disabled) {
+      background: #00b8d9;
+      box-shadow: 0 8px 25px rgba(0, 212, 255, 0.4);
+      transform: translateY(-1px);
+    }
 
- .success-banner {
-   display: none;
-   background: rgba(16, 185, 129, 0.1);
-   border: 1px solid rgba(16, 185, 129, 0.4);
-   border-radius: 12px;
-   padding: 1.2rem 1.5rem;
-   margin-top: 1rem;
-   text-align: center;
- }
+    .btn-submit:hover::after {
+      opacity: 1;
+    }
 
- .success-banner.show { display: block; animation: fadeUp 0.4s ease; }
+    .btn-submit:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
 
- .success-icon { font-size: 2rem; margin-bottom: 0.5rem; }
- .success-title { font-family: 'Syne', sans-serif; font-weight: 700; color: var(--success); font-size: 1rem; }
- .success-sub { font-size: 0.82rem; color: var(--muted); margin-top: 0.3rem; }
+    .btn-submit svg {
+      width: 18px;
+      height: 18px;
+    }
 
- .footer-note {
-   text-align: center;
-   font-size: 0.75rem;
-   color: var(--muted);
-   margin-top: 1.5rem;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 0.4rem;
- }
+    .spinner {
+      display: none;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(10, 15, 30, 0.3);
+      border-top-color: #0a0f1e;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
 
- .footer-note svg { width: 13px; height: 13px; stroke: var(--muted); }
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
 
- @media (max-width: 500px) {
-   .form-grid { grid-template-columns: 1fr; }
-   .card { padding: 1.8rem 1.4rem; }
-   h1 { font-size: 1.8rem; }
- }
-</style>
+    .success-banner {
+      display: none;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      border-radius: 12px;
+      padding: 1.2rem 1.5rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+    .success-banner.show {
+      display: block;
+      animation: fadeUp 0.4s ease;
+    }
+
+    .success-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .success-title {
+      font-family: ‘Syne’, sans-serif;
+      font-weight: 700;
+      color: var(–success);
+      font-size: 1rem;
+    }
+
+    .success-sub {
+      font-size: 0.82rem;
+      color: var(–muted);
+      margin-top: 0.3rem;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(–muted);
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .footer-note svg {
+      width: 13px;
+      height: 13px;
+      stroke: var(–muted);
+    }
+
+    @media (max-width: 500px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        padding: 1.8rem 1.4rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
+
 </head>
+
 <body>
-<div class="grid-bg"></div>
-<div class="container">
- <div class="header">
-   <div class="logo-badge">HR Portal</div>
-   <h1>Document <span>Submission</span></h1>
-   <p class="subtitle">Submit your documents securely to Azure & SharePoint</p>
- </div>
+  <div class="grid-bg"></div>
+  <div class="container">
+    <div class="header">
+      <div class="logo-badge">HR Portal</div>
+      <h1>Document <span>Submission</span></h1>
+      <p class="subtitle">Submit your documents securely to Azure & SharePoint</p>
+    </div>
 
- <div class="card">
-   <form id="empForm" novalidate>
-     <div class="form-grid">
+    <div class="card">
+      <form id="empForm" novalidate>
+        <div class="form-grid">
 
-       <div class="form-group">
-         <label for="empId">Employee ID <span class="req">*</span></label>
-         <input type="text" id="empId" placeholder="e.g. EMP-00123" autocomplete="off" required>
-         <div class="error-msg" id="errEmpId">Employee ID is required</div>
-       </div>
+          ```
+          <div class="form-group">
+            <label for="empId">Employee ID <span class="req">*</span></label>
+            <input type="text" id="empId" placeholder="e.g. EMP-00123" autocomplete="off" required>
+            <div class="error-msg" id="errEmpId">Employee ID is required</div>
+          </div>
 
-       <div class="form-group">
-         <label for="empName">Full Name <span class="req">*</span></label>
-         <input type="text" id="empName" placeholder="Your full name" required>
-         <div class="error-msg" id="errEmpName">Name is required</div>
-       </div>
+          <div class="form-group">
+            <label for="empName">Full Name <span class="req">*</span></label>
+            <input type="text" id="empName" placeholder="Your full name" required>
+            <div class="error-msg" id="errEmpName">Name is required</div>
+          </div>
 
-       <div class="form-group full">
-         <label for="empEmail">Email Address <span class="req">*</span></label>
-         <input type="email" id="empEmail" placeholder="you@company.com" required>
-         <div class="error-msg" id="errEmpEmail">Valid email is required</div>
-       </div>
+          <div class="form-group full">
+            <label for="empEmail">Email Address <span class="req">*</span></label>
+            <input type="email" id="empEmail" placeholder="you@company.com" required>
+            <div class="error-msg" id="errEmpEmail">Valid email is required</div>
+          </div>
 
-       <div class="form-group full">
-         <label for="managerName">Manager Name <span class="req">*</span></label>
-         <input type="text" id="managerName" placeholder="Your reporting manager" required>
-         <div class="error-msg" id="errManagerName">Manager name is required</div>
-       </div>
+          <div class="form-group full">
+            <label for="managerName">Manager Name <span class="req">*</span></label>
+            <input type="text" id="managerName" placeholder="Your reporting manager" required>
+            <div class="error-msg" id="errManagerName">Manager name is required</div>
+          </div>
 
-       <div class="form-group full">
-         <label>Upload Document <span class="req">*</span></label>
-         <div class="upload-zone" id="uploadZone">
-           <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png">
-           <div class="upload-icon">
-             <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-               <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-               <polyline points="17 8 12 3 7 8"/>
-               <line x1="12" y1="3" x2="12" y2="15"/>
-             </svg>
-           </div>
-           <div class="upload-title">Drag & drop or click to browse</div>
-           <div class="upload-hint">
-             <strong>PDF, JPG, PNG</strong> only &nbsp;·&nbsp; Max size: <strong>1 MB</strong>
-           </div>
-         </div>
-         <div class="file-preview" id="filePreview">
-           <div class="file-icon" id="fileTypeIcon">📄</div>
-           <div class="file-details">
-             <div class="file-name" id="fileName">—</div>
-             <div class="file-size" id="fileSize">—</div>
-           </div>
-           <button type="button" class="file-remove" id="fileRemove" title="Remove">✕</button>
-         </div>
-         <div class="error-msg" id="errFile">Please upload a valid file (PDF/JPG/PNG, max 1 MB)</div>
-       </div>
+          <div class="form-group full">
+            <label>Upload Document <span class="req">*</span></label>
+            <div class="upload-zone" id="uploadZone">
+              <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png">
+              <div class="upload-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+                  <polyline points="17 8 12 3 7 8" />
+                  <line x1="12" y1="3" x2="12" y2="15" />
+                </svg>
+              </div>
+              <div class="upload-title">Drag & drop or click to browse</div>
+              <div class="upload-hint">
+                <strong>PDF, JPG, PNG</strong> only &nbsp;·&nbsp; Max size: <strong>1 MB</strong>
+              </div>
+            </div>
+            <div class="file-preview" id="filePreview">
+              <div class="file-icon" id="fileTypeIcon">📄</div>
+              <div class="file-details">
+                <div class="file-name" id="fileName">—</div>
+                <div class="file-size" id="fileSize">—</div>
+              </div>
+              <button type="button" class="file-remove" id="fileRemove" title="Remove">✕</button>
+            </div>
+            <div class="error-msg" id="errFile">Please upload a valid file (PDF/JPG/PNG, max 1 MB)</div>
+          </div>
 
-     </div>
+        </div>
 
-     <div class="divider"></div>
+        <div class="divider"></div>
 
-     <button type="submit" class="btn-submit" id="submitBtn">
-       <span id="btnText">Submit Document</span>
-       <div class="spinner" id="spinner"></div>
-       <svg id="btnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-         <path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/>
-       </svg>
-     </button>
+        <button type="submit" class="btn-submit" id="submitBtn">
+          <span id="btnText">Submit Document</span>
+          <div class="spinner" id="spinner"></div>
+          <svg id="btnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 2L11 13" />
+            <path d="M22 2L15 22 11 13 2 9l20-7z" />
+          </svg>
+        </button>
 
-     <div class="success-banner" id="successBanner">
-       <div class="success-icon">✅</div>
-       <div class="success-title">Document Submitted Successfully!</div>
-       <div class="success-sub" id="successDetail">Uploaded to Azure Blob Storage & archived to SharePoint.</div>
-     </div>
-   </form>
- </div>
+        <div class="success-banner" id="successBanner">
+          <div class="success-icon">✅</div>
+          <div class="success-title">Document Submitted Successfully!</div>
+          <div class="success-sub" id="successDetail">Uploaded to Azure Blob Storage & archived to SharePoint.</div>
+        </div>
+      </form>
+      ```
 
- <div class="footer-note">
-   <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-     <rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/>
-   </svg>
-   Files are encrypted and stored securely on Azure
- </div>
-</div>
+    </div>
 
-<script>
- let selectedFile = null;
+    <div class="footer-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="11" rx="2" />
+        <path d="M7 11V7a5 5 0 0110 0v4" />
+      </svg>
+      Files are encrypted and stored securely on Azure
+    </div>
+  </div>
 
- const fileInput = document.getElementById('fileInput');
- const uploadZone = document.getElementById('uploadZone');
- const filePreview = document.getElementById('filePreview');
- const fileName = document.getElementById('fileName');
- const fileSize = document.getElementById('fileSize');
- const fileRemove = document.getElementById('fileRemove');
- const fileTypeIcon = document.getElementById('fileTypeIcon');
- const errFile = document.getElementById('errFile');
+  <script>
+    let selectedFile = null;
 
- const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
- const MAX_SIZE = 1 * 1024 * 1024; // 1 MB
+    const fileInput = document.getElementById('fileInput');
+    const uploadZone = document.getElementById('uploadZone');
+    const filePreview = document.getElementById('filePreview');
+    const fileName = document.getElementById('fileName');
+    const fileSize = document.getElementById('fileSize');
+    const fileRemove = document.getElementById('fileRemove');
+    const fileTypeIcon = document.getElementById('fileTypeIcon');
+    const errFile = document.getElementById('errFile');
 
- function formatBytes(bytes) {
-   if (bytes < 1024) return bytes + ' B';
-   if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
-   return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
- }
+    const ALLOWED_TYPES = ['application/pdf', 'image/jpeg', 'image/png'];
+    const MAX_SIZE = 1 * 1024 * 1024; // 1 MB
 
- function getFileIcon(type) {
-   if (type === 'application/pdf') return '📑';
-   if (type.startsWith('image/')) return '🖼️';
-   return '📄';
- }
+    function formatBytes(bytes) {
+      if (bytes < 1024) return bytes + ' B';
+      if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+      return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+    }
 
- function handleFile(file) {
-   errFile.classList.remove('show');
-   if (!ALLOWED_TYPES.includes(file.type)) {
-     errFile.textContent = 'Invalid file type. Only PDF, JPG, PNG allowed.';
-     errFile.classList.add('show');
-     return;
-   }
-   if (file.size > MAX_SIZE) {
-     errFile.textContent = `File too large (${formatBytes(file.size)}). Maximum allowed: 1 MB.`;
-     errFile.classList.add('show');
-     return;
-   }
-   selectedFile = file;
-   fileName.textContent = file.name;
-   fileSize.textContent = formatBytes(file.size);
-   fileTypeIcon.textContent = getFileIcon(file.type);
-   filePreview.classList.add('show');
- }
+    function getFileIcon(type) {
+      if (type === 'application/pdf') return '📑';
+      if (type.startsWith('image/')) return '🖼️';
+      return '📄';
+    }
 
- fileInput.addEventListener('change', (e) => {
-   if (e.target.files[0]) handleFile(e.target.files[0]);
- });
+    function handleFile(file) {
+      errFile.classList.remove('show');
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        errFile.textContent = 'Invalid file type. Only PDF, JPG, PNG allowed.';
+        errFile.classList.add('show');
+        return;
+      }
+      if (file.size > MAX_SIZE) {
+        errFile.textContent = `File too large (${formatBytes(file.size)}). Maximum allowed: 1 MB.`;
+        errFile.classList.add('show');
+        return;
+      }
+      selectedFile = file;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatBytes(file.size);
+      fileTypeIcon.textContent = getFileIcon(file.type);
+      filePreview.classList.add('show');
+    }
 
- uploadZone.addEventListener('dragover', (e) => {
-   e.preventDefault(); uploadZone.classList.add('drag-over');
- });
- uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
- uploadZone.addEventListener('drop', (e) => {
-   e.preventDefault(); uploadZone.classList.remove('drag-over');
-   if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
- });
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files[0]) handleFile(e.target.files[0]);
+    });
 
- fileRemove.addEventListener('click', () => {
-   selectedFile = null;
-   fileInput.value = '';
-   filePreview.classList.remove('show');
-   errFile.classList.remove('show');
- });
+    uploadZone.addEventListener('dragover', (e) => {
+      e.preventDefault(); uploadZone.classList.add('drag-over');
+    });
+    uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+    uploadZone.addEventListener('drop', (e) => {
+      e.preventDefault(); uploadZone.classList.remove('drag-over');
+      if (e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);
+    });
 
- function showError(id, msg) {
-   const el = document.getElementById(id);
-   if (msg) el.textContent = msg;
-   el.classList.add('show');
- }
- function clearError(id) {
-   document.getElementById(id).classList.remove('show');
- }
+    fileRemove.addEventListener('click', () => {
+      selectedFile = null;
+      fileInput.value = '';
+      filePreview.classList.remove('show');
+      errFile.classList.remove('show');
+    });
 
- document.getElementById('empForm').addEventListener('submit', async (e) => {
-   e.preventDefault();
-   let valid = true;
+    function showError(id, msg) {
+      const el = document.getElementById(id);
+      if (msg) el.textContent = msg;
+      el.classList.add('show');
+    }
+    function clearError(id) {
+      document.getElementById(id).classList.remove('show');
+    }
 
-   const empId = document.getElementById('empId').value.trim();
-   const empName = document.getElementById('empName').value.trim();
-   const empEmail = document.getElementById('empEmail').value.trim();
-   const managerName = document.getElementById('managerName').value.trim();
+    // ─── CONFIGURATION — Yahan apni values paste karo ──────────────────
+    const BLOB_SAS_URL = 'https://billclaimpoc.blob.core.windows.net/emp-docs';
+    const BLOB_SAS_TOKEN = '?si=Wrtier&spr=https&sv=2025-11-05&sr=c&sig=QCp%2FijRFf6U9rnHyAMElomufh715WMpNtjYMNdmURLU%3D'; // apna SAS token
+    const AZURE_FUNCTION_URL = 'https://hr-form-api-etf8d6fqbvhuhrcz.centralindia-01.azurewebsites.net/api/SubmitEmployeeForm';
+    // ─────────────────────────────────────────────────────────────────────
 
-   ['errEmpId','errEmpName','errEmpEmail','errManagerName','errFile'].forEach(clearError);
+    document.getElementById('empForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      let valid = true;
 
-   if (!empId) { showError('errEmpId', 'Employee ID is required'); valid = false; }
-   if (!empName) { showError('errEmpName', 'Full name is required'); valid = false; }
-   if (!empEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(empEmail)) {
-     showError('errEmpEmail', 'Please enter a valid email address'); valid = false;
-   }
-   if (!managerName) { showError('errManagerName', 'Manager name is required'); valid = false; }
-   if (!selectedFile) { showError('errFile', 'Please upload a document to continue'); valid = false; }
+      const empId = document.getElementById('empId').value.trim();
+      const empName = document.getElementById('empName').value.trim();
+      const empEmail = document.getElementById('empEmail').value.trim();
+      const managerName = document.getElementById('managerName').value.trim();
 
-   if (!valid) return;
+      ['errEmpId', 'errEmpName', 'errEmpEmail', 'errManagerName', 'errFile'].forEach(clearError);
 
-   // === Simulate upload (replace with real Azure + SharePoint API calls) ===
-   const btn = document.getElementById('submitBtn');
-   const btnText = document.getElementById('btnText');
-   const spinner = document.getElementById('spinner');
-   const btnIcon = document.getElementById('btnIcon');
+      if (!empId) { showError('errEmpId', 'Employee ID is required'); valid = false; }
+      if (!empName) { showError('errEmpName', 'Full name is required'); valid = false; }
+      if (!empEmail || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(empEmail)) {
+        showError('errEmpEmail', 'Please enter a valid email address'); valid = false;
+      }
+      if (!managerName) { showError('errManagerName', 'Manager name is required'); valid = false; }
+      if (!selectedFile) { showError('errFile', 'Please upload a document to continue'); valid = false; }
 
-   btn.disabled = true;
-   btnText.textContent = 'Uploading...';
-   spinner.style.display = 'block';
-   btnIcon.style.display = 'none';
+      if (!valid) return;
 
-   /*
-   ─────────────────────────────────────────────────────────────────
-   REAL INTEGRATION (replace simulation below):
-   
-   STEP 1 — Azure Blob Storage Upload:
-   const formData = new FormData();
-   formData.append('empId', empId);
-   formData.append('empName', empName);
-   formData.append('empEmail', empEmail);
-   formData.append('managerName', managerName);
-   formData.append('file', selectedFile);
-   
-   const azureRes = await fetch('https://YOUR_BACKEND_API/upload-to-azure', {
-     method: 'POST',
-     body: formData
-   });
-   
-   STEP 2 — SharePoint Archive via Graph API (from backend):
-   Backend calls: POST https://graph.microsoft.com/v1.0/sites/{site-id}/drives/{drive-id}/items/{folder-id}:/{filename}:/content
-   With Bearer token from Azure AD.
-   ─────────────────────────────────────────────────────────────────
-   */
+      const btn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      const spinner = document.getElementById('spinner');
+      const btnIcon = document.getElementById('btnIcon');
 
-   await new Promise(r => setTimeout(r, 2200)); // Simulated delay
+      const setLoading = (msg) => {
+        btn.disabled = true;
+        btnText.textContent = msg;
+        spinner.style.display = 'block';
+        btnIcon.style.display = 'none';
+      };
+      const resetBtn = () => {
+        btn.disabled = false;
+        btnText.textContent = 'Submit Document';
+        spinner.style.display = 'none';
+        btnIcon.style.display = 'block';
+      };
 
-   btn.disabled = false;
-   btnText.textContent = 'Submit Document';
-   spinner.style.display = 'none';
-   btnIcon.style.display = 'block';
+      try {
+        // ── STEP 1: Azure Blob Storage mein file upload karo ──────────────
+        setLoading('Uploading file...');
 
-   document.getElementById('successDetail').textContent =
-     `"${selectedFile.name}" uploaded for ${empName} (${empId}) — archived to SharePoint.`;
-   document.getElementById('successBanner').classList.add('show');
+        // Unique blob name: empId_timestamp_filename
+        const timestamp = Date.now();
+        const blobName = `${empId}_${timestamp}_${selectedFile.name}`;
+        const uploadUrl = `${BLOB_SAS_URL}/${blobName}${BLOB_SAS_TOKEN}`;
 
-   // Reset form after success
-   setTimeout(() => {
-     document.getElementById('empForm').reset();
-     selectedFile = null;
-     filePreview.classList.remove('show');
-     document.getElementById('successBanner').classList.remove('show');
-   }, 5000);
- });
-</script>
+        const blobRes = await fetch(uploadUrl, {
+          method: 'PUT',
+          headers: {
+            'x-ms-blob-type': 'BlockBlob',
+            'Content-Type': selectedFile.type,
+            'x-ms-meta-empid': empId,
+            'x-ms-meta-empname': empName,
+            'x-ms-meta-email': empEmail,
+            'x-ms-meta-managername': managerName
+          },
+          body: selectedFile
+        });
+
+        if (!blobRes.ok) throw new Error(`Blob upload failed: ${blobRes.status}`);
+
+        // Final public blob URL (without SAS token — for DB record)
+        const blobUrl = `${BLOB_SAS_URL}/${blobName}`;
+
+        // ── STEP 2: Azure SQL mein record save karo via Azure Function ─────
+        setLoading('Saving record...');
+
+        const sqlRes = await fetch(AZURE_FUNCTION_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            empId,
+            empName,
+            empEmail,
+            managerName,
+            fileName: selectedFile.name,
+            fileSizeKB: (selectedFile.size / 1024).toFixed(2),
+            blobUrl
+          })
+        });
+
+        if (!sqlRes.ok) throw new Error(`DB save failed: ${sqlRes.status}`);
+
+        // ── SUCCESS ────────────────────────────────────────────────────────
+        resetBtn();
+        document.getElementById('successDetail').textContent =
+          `"${selectedFile.name}" uploaded for ${empName} (${empId}) — record saved to database.`;
+        document.getElementById('successBanner').classList.add('show');
+
+        setTimeout(() => {
+          document.getElementById('empForm').reset();
+          selectedFile = null;
+          filePreview.classList.remove('show');
+          document.getElementById('successBanner').classList.remove('show');
+        }, 5000);
+
+      } catch (err) {
+        resetBtn();
+        alert(`❌ Error: ${err.message}\n\nPlease check your configuration and try again.`);
+        console.error(err);
+      }
+    });
+  </script>
+
 </body>
+
 </html>
